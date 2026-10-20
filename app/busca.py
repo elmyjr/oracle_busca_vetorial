@@ -5,12 +5,25 @@ from app.database import conectar
 from app.embeddings import gerar_embedding
 
 
+def extrair_sinopse(texto: str) -> str:
+    """Devolve a linha 'Sinopse: ...' do texto gravado, sem o rótulo."""
+    return next(
+        (
+            linha.removeprefix("Sinopse: ")
+            for linha in texto.splitlines()
+            if linha.startswith("Sinopse: ")
+        ),
+        "",
+    )
+
+
 def buscar_filmes(pergunta: str, limite: int = 3) -> list[dict]:
     vetor = gerar_embedding(pergunta)
 
     sql = """
         SELECT
             titulo,
+            texto,
             VECTOR_DISTANCE(embedding, :vetor, COSINE) AS distancia
         FROM kb_docs
         ORDER BY distancia
@@ -24,14 +37,17 @@ def buscar_filmes(pergunta: str, limite: int = 3) -> list[dict]:
                 "vetor": array.array("f", vetor),
                 "limite": limite,
             },
+            # O texto é CLOB; com fetch_lobs=False ele chega como str.
+            fetch_lobs=False,
         )
 
         return [
             {
                 "titulo": titulo,
+                "sinopse": extrair_sinopse(texto),
                 "distancia": distancia,
             }
-            for titulo, distancia in cur
+            for titulo, texto, distancia in cur
         ]
 
 

@@ -78,7 +78,18 @@
             border-radius: 8px;
         }
 
+        #resultados h2 {
+            margin: 0;
+            font-size: 1.2rem;
+        }
+
+        .sinopse {
+            margin: 8px 0;
+            line-height: 1.5;
+        }
+
         .distancia {
+            margin: 0;
             color: #5a626c;
             font-size: 0.9rem;
         }
@@ -170,15 +181,19 @@
                 dados.resultados.forEach((filme, indice) => {
                     const item = document.createElement("li");
                     const titulo = document.createElement("h2");
+                    const sinopse = document.createElement("p");
                     const distancia = document.createElement("p");
 
                     titulo.textContent = `${indice + 1}. ${filme.titulo}`;
+
+                    sinopse.className = "sinopse";
+                    sinopse.textContent = filme.sinopse;
 
                     distancia.className = "distancia";
                     distancia.textContent =
                         `Distância cosseno: ${filme.distancia.toFixed(4)}`;
 
-                    item.append(titulo, distancia);
+                    item.append(titulo, sinopse, distancia);
                     lista.appendChild(item);
                 });
 

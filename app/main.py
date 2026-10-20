@@ -21,6 +21,7 @@ class BuscaRequest(BaseModel):
 
 class FilmeResultado(BaseModel):
     titulo: str
+    sinopse: str
     distancia: float
 
 
