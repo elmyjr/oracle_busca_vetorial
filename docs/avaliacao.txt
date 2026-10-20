@@ -1,0 +1,134 @@
+============================================================
+PERGUNTA 1/10
+Categoria: enredo
+Pergunta: Um zelador mecânico, último habitante de um mundo coberto de sujeira, se apaixona por uma visitante
+Esperados: ['WALL·E']
+Acerto@3: SIM
+Encontrados: ['WALL·E']
+Faltantes: []
+Top 3:
+  WALL·E | Distância: 0.4900 [ESPERADO]
+  Intocáveis | Distância: 0.5015
+  Interestelar | Distância: 0.5020
+
+============================================================
+PERGUNTA 2/10
+Categoria: enredo
+Pergunta: Carteiro isolado após um acidente aéreo, tendo um objeto esportivo como único amigo
+Esperados: ['Náufrago']
+Acerto@3: NÃO
+Encontrados: []
+Faltantes: ['Náufrago']
+Top 3:
+  Apertem os Cintos… o Piloto Sumiu! | Distância: 0.4767
+  Up: Altas Aventuras | Distância: 0.5102
+  O Fabuloso Destino de Amélie Poulain | Distância: 0.5223
+
+============================================================
+PERGUNTA 3/10
+Categoria: enredo
+Pergunta: Homem percebe que cada momento da própria rotina é filmado em segredo para uma plateia de milhões
+Esperados: ['O Show de Truman: O Show da Vida']
+Acerto@3: NÃO
+Encontrados: []
+Faltantes: ['O Show de Truman: O Show da Vida']
+Top 3:
+  Matrix | Distância: 0.5014
+  Click | Distância: 0.5178
+  Ghost: Do Outro Lado da Vida | Distância: 0.5288
+
+============================================================
+PERGUNTA 4/10
+Categoria: enredo
+Pergunta: Repórter que fala de chuva e sol, aprisionado numa única data do calendário, que reinicia sempre que acorda
+Esperados: ['Feitiço do Tempo']
+Acerto@3: SIM
+Encontrados: ['Feitiço do Tempo']
+Faltantes: []
+Top 3:
+  Feitiço do Tempo | Distância: 0.4645 [ESPERADO]
+  O Dia Depois de Amanhã | Distância: 0.4881
+  Diário de uma Paixão | Distância: 0.4965
+
+============================================================
+PERGUNTA 5/10
+Categoria: inglês
+Pergunta: A poor family cons its way into working for a rich household, until a secret hidden in the house surfaces on a rainy night
+Esperados: ['Parasita']
+Acerto@3: SIM
+Encontrados: ['Parasita']
+Faltantes: []
+Top 3:
+  Parasita | Distância: 0.4676 [ESPERADO]
+  Encanto | Distância: 0.4743
+  Pequena Miss Sunshine | Distância: 0.4755
+
+============================================================
+PERGUNTA 6/10
+Categoria: enredo
+Pergunta: Filme sobre um homem que se apaixona por uma inteligência artificial
+Esperados: ['Ela']
+Acerto@3: SIM
+Encontrados: ['Ela']
+Faltantes: []
+Top 3:
+  Ex Machina: Instinto Artificial | Distância: 0.3703
+  Ela | Distância: 0.3996 [ESPERADO]
+  Matrix | Distância: 0.4077
+
+============================================================
+PERGUNTA 7/10
+Categoria: ator
+Pergunta: Quero ver um filme com a Fernanda Montenegro
+Esperados: ['Ainda Estou Aqui', 'Central do Brasil', 'O Auto da Compadecida']
+Acerto@3: SIM
+Encontrados: ['Central do Brasil']
+Faltantes: ['Ainda Estou Aqui', 'O Auto da Compadecida']
+Top 3:
+  Central do Brasil | Distância: 0.4682 [ESPERADO]
+  Encontro de Amor | Distância: 0.4953
+  O Diabo Veste Prada | Distância: 0.4975
+
+============================================================
+PERGUNTA 8/10
+Categoria: ocasião
+Pergunta: O que assistir com as crianças na noite de Natal?
+Esperados: ['Esqueceram de Mim']
+Acerto@3: SIM
+Encontrados: ['Esqueceram de Mim']
+Faltantes: []
+Top 3:
+  Gremlins | Distância: 0.4872
+  Matilda | Distância: 0.4892
+  Esqueceram de Mim | Distância: 0.4944 [ESPERADO]
+
+============================================================
+PERGUNTA 9/10
+Categoria: recepção
+Pergunta: Um filme que foi mal nos cinemas, mas depois virou cult
+Esperados: ['A Felicidade Não se Compra', 'A Princesa Prometida', 'Blade Runner, o Caçador de Androides', 'Cantando na Chuva', 'Cidadão Kane', 'Clube da Luta', 'Encanto', 'Matilda', 'Meu Amigo Totoro', 'O Gigante de Ferro', 'O Grande Lebowski', 'O Mágico de Oz', 'Touro Indomável', 'Um Sonho de Liberdade']
+Acerto@3: SIM
+Encontrados: ['A Felicidade Não se Compra']
+Faltantes: ['A Princesa Prometida', 'Blade Runner, o Caçador de Androides', 'Cantando na Chuva', 'Cidadão Kane', 'Clube da Luta', 'Encanto', 'Matilda', 'Meu Amigo Totoro', 'O Gigante de Ferro', 'O Grande Lebowski', 'O Mágico de Oz', 'Touro Indomável', 'Um Sonho de Liberdade']
+Top 3:
+  As Patricinhas de Beverly Hills | Distância: 0.4754
+  Os Bons Companheiros | Distância: 0.4937
+  A Felicidade Não se Compra | Distância: 0.5096 [ESPERADO]
+
+============================================================
+PERGUNTA 10/10
+Categoria: fora da base
+Pergunta: Como declarar o imposto de renda?
+Tipo: consulta fora da base
+Distância do primeiro resultado: 0.5868
+Top 3:
+  Jerry Maguire: A Grande Virada | Distância: 0.5868
+  Uma Verdade Inconveniente | Distância: 0.5982
+  Spotlight: Segredos Revelados | Distância: 0.6052
+
+============================================================
+RESUMO DA AVALIAÇÃO
+Acerto@3 geral: 7/9
+  sem palavras em comum: 3/5
+  com palavras em comum: 4/4
+Distância do 1º lugar — fora da base: 0.5868 | média das outras 9: 0.4668

@@ -1,0 +1,9 @@
+# Guarda os textos com LF no repositório.
+* text=auto
+
+# Arquivos lidos dentro dos containers Linux: sempre LF, mesmo num
+# clone no Windows (o SQL roda no SQL*Plus da imagem do Oracle).
+*.sql         text eol=lf
+*.sh          text eol=lf
+*.yaml        text eol=lf
+Containerfile text eol=lf

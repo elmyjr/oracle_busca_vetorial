@@ -1,0 +1,62 @@
+# Busca vetorial de filmes: Oracle + Ollama + aplicação.
+# Subir:   podman compose up -d
+# Parar:   podman compose down      (mantém os volumes: banco e modelo)
+# Zerar:   podman compose down -v   (apaga os volumes também)
+
+services:
+
+  # ---------------------------------------------------------------
+  # Banco: Oracle AI Database 26ai Free (imagem da família gvenzl)
+  # ---------------------------------------------------------------
+  oracle:
+    image: docker.io/gvenzl/oracle-free:23-slim
+    environment:
+      ORACLE_PASSWORD: ${ORACLE_PASSWORD}        # senha do SYS/SYSTEM, vem do .env
+      APP_USER: app_embedding                    # criado no FREEPDB1 na 1ª subida
+      APP_USER_PASSWORD: ${APP_USER_PASSWORD}
+    ports:
+      - "1521:1521"                              # para o SQL Developer / VS Code
+    volumes:
+      - oracle-dados:/opt/oracle/oradata         # os dados sobrevivem ao container
+      - ./sql/01-create-table.sql:/container-entrypoint-initdb.d/01-create-table.sql:ro
+    healthcheck:
+      test: ["CMD", "healthcheck.sh"]            # script que já vem na imagem
+      interval: 10s                              # roda a cada 10 s
+      timeout: 5s                                # mais que isso conta como falha
+      retries: 30                                # 30 falhas seguidas = unhealthy
+      start_period: 30s                          # falhas no início não contam
+
+  # ---------------------------------------------------------------
+  # Embeddings: Ollama com o bge-m3 (baixado à parte, ver README)
+  # ---------------------------------------------------------------
+  ollama:
+    image: docker.io/ollama/ollama:0.40.6        # versão fixa, a mesma usada no teste
+    environment:
+      OLLAMA_KEEP_ALIVE: 1h                      # modelo fica 1 h na memória após o uso
+    volumes:
+      - ollama-modelos:/root/.ollama             # o bge-m3 baixado fica aqui
+    # Sem "ports": só a aplicação fala com o Ollama, pela rede interna.
+
+  # ---------------------------------------------------------------
+  # Aplicação: FastAPI + página HTML, construída pelo Containerfile
+  # ---------------------------------------------------------------
+  app:
+    build:
+      context: .
+      dockerfile: Containerfile
+    environment:
+      DB_USER: app_embedding
+      DB_PASSWORD: ${APP_USER_PASSWORD}
+      DB_DSN: oracle:1521/FREEPDB1               # "oracle" = nome do serviço acima
+      OLLAMA_URL: http://ollama:11434/api/embed  # "ollama" = nome do serviço acima
+    ports:
+      - "8000:8000"                              # http://localhost:8000
+    depends_on:
+      oracle:
+        condition: service_healthy               # espera o healthcheck passar
+      ollama:
+        condition: service_started               # basta o container ter iniciado
+
+volumes:
+  oracle-dados:
+  ollama-modelos:

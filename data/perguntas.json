@@ -1,0 +1,105 @@
+[
+  {
+    "pergunta": "Um zelador mecânico, último habitante de um mundo coberto de sujeira, se apaixona por uma visitante",
+    "esperados": [
+      "WALL·E"
+    ],
+    "categoria": "enredo",
+    "sem_palavras_em_comum": true,
+    "criterio": "Enredo de um filme só, descrito sem palavras do texto dele."
+  },
+  {
+    "pergunta": "Carteiro isolado após um acidente aéreo, tendo um objeto esportivo como único amigo",
+    "esperados": [
+      "Náufrago"
+    ],
+    "categoria": "enredo",
+    "sem_palavras_em_comum": true,
+    "criterio": "Enredo de um filme só, descrito sem palavras do texto dele."
+  },
+  {
+    "pergunta": "Homem percebe que cada momento da própria rotina é filmado em segredo para uma plateia de milhões",
+    "esperados": [
+      "O Show de Truman: O Show da Vida"
+    ],
+    "categoria": "enredo",
+    "sem_palavras_em_comum": true,
+    "criterio": "Enredo de um filme só, descrito sem palavras do texto dele."
+  },
+  {
+    "pergunta": "Repórter que fala de chuva e sol, aprisionado numa única data do calendário, que reinicia sempre que acorda",
+    "esperados": [
+      "Feitiço do Tempo"
+    ],
+    "categoria": "enredo",
+    "sem_palavras_em_comum": true,
+    "criterio": "Enredo de um filme só, descrito sem palavras do texto dele."
+  },
+  {
+    "pergunta": "A poor family cons its way into working for a rich household, until a secret hidden in the house surfaces on a rainy night",
+    "esperados": [
+      "Parasita"
+    ],
+    "categoria": "inglês",
+    "sem_palavras_em_comum": true,
+    "criterio": "Enredo de um filme só, em inglês; o texto da base está em português."
+  },
+  {
+    "pergunta": "Filme sobre um homem que se apaixona por uma inteligência artificial",
+    "esperados": [
+      "Ela"
+    ],
+    "categoria": "enredo",
+    "sem_palavras_em_comum": false,
+    "criterio": "Enredo de um filme só, com palavras do texto dele."
+  },
+  {
+    "pergunta": "Quero ver um filme com a Fernanda Montenegro",
+    "esperados": [
+      "Central do Brasil",
+      "O Auto da Compadecida",
+      "Ainda Estou Aqui"
+    ],
+    "categoria": "ator",
+    "sem_palavras_em_comum": false,
+    "criterio": "Regra: \"Fernanda Montenegro\" está na lista elenco."
+  },
+  {
+    "pergunta": "O que assistir com as crianças na noite de Natal?",
+    "esperados": [
+      "Esqueceram de Mim"
+    ],
+    "categoria": "ocasião",
+    "sem_palavras_em_comum": false,
+    "criterio": "Regra: clima contém \"Natal\" e \"para ver em família\" (uma condição por exigência da pergunta)."
+  },
+  {
+    "pergunta": "Um filme que foi mal nos cinemas, mas depois virou cult",
+    "esperados": [
+      "Um Sonho de Liberdade",
+      "Blade Runner, o Caçador de Androides",
+      "Clube da Luta",
+      "Matilda",
+      "Cantando na Chuva",
+      "O Mágico de Oz",
+      "Cidadão Kane",
+      "A Felicidade Não se Compra",
+      "A Princesa Prometida",
+      "Meu Amigo Totoro",
+      "O Gigante de Ferro",
+      "Encanto",
+      "O Grande Lebowski",
+      "Touro Indomável"
+    ],
+    "categoria": "recepção",
+    "sem_palavras_em_comum": false,
+    "criterio": "Leitura da recepcao com duas condições: (a) bilheteria fraca na estreia (fracasso, foi mal, abaixo do esperado, morna, modesta, só deu lucro depois); (b) reconhecimento posterior, com marca de tempo (depois, hoje, virou, se tornou, graças ao vídeo, à TV ou ao streaming). 'Moderado' não conta como fraco."
+  },
+  {
+    "pergunta": "Como declarar o imposto de renda?",
+    "esperados": [],
+    "categoria": "fora da base",
+    "sem_palavras_em_comum": null,
+    "criterio": "Fora da base: não entra no acerto; serve para comparar a distância do 1º lugar."
+  }
+]

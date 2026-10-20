@@ -1,0 +1,7 @@
+# O que NÃO entra no contexto de build da imagem da aplicação.
+# Vale para Podman e Docker (o Podman também lê este nome).
+.venv/
+**/__pycache__/
+.ruff_cache/
+.git/
+.env
