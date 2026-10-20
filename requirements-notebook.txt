@@ -1,0 +1,6 @@
+# Extras só para o demonstracoes.ipynb; a imagem da aplicação não precisa deles.
+# Instale no .venv do projeto, junto com app/requirements.txt:
+#   pip install -r app/requirements.txt -r requirements-notebook.txt
+ipykernel
+numpy
+matplotlib

@@ -1,5 +1,5 @@
 -- =====================================================================
--- 03-search.sql — Consultas de similaridade e comparação com LIKE
+-- 02-search.sql — Consultas de similaridade e comparação com LIKE
 -- Projeto: busca vetorial de filmes (Grupo 3, MBA PUC Minas)
 --
 -- Como rodar: conectado como app_embedding em FREEPDB1, executar como

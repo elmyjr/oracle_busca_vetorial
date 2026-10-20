@@ -27,11 +27,12 @@ data/
   perguntas.json  9 perguntas com resposta esperada + 1 fora da base
 sql/
   01-create-table.sql  cria a tabela; roda sozinho na primeira subida
-  03-search.sql        consultas didáticas: filmes parecidos e comparação com LIKE
+  02-search.sql        consultas didáticas: filmes parecidos e comparação com LIKE
 docs/
   avaliacao.txt  resultado da avaliação (7/9 no top-3), pergunta a pergunta
 compose.yaml    os três serviços: oracle, ollama e app
 Containerfile   receita da imagem da aplicação
+demonstracoes.ipynb  notebook com as demonstrações dos conceitos (ver abaixo)
 .env.example    senhas da demonstração (copiar para .env)
 ```
 
@@ -97,7 +98,7 @@ Buscas para a demonstração:
 | Quero ver um filme com a Fernanda Montenegro | Central do Brasil em 1º |
 | Como declarar o imposto de renda? | Fora da base: algum filme volta, mas com distância bem maior |
 
-Para mostrar o SQL, conecte o VS Code ou o SQL Developer em `localhost:1521/FREEPDB1`, usuário `app_embedding`, senha do `APP_USER_PASSWORD` no `.env`, e rode o `sql/03-search.sql` como script (F5).
+Para mostrar o SQL, conecte o VS Code ou o SQL Developer em `localhost:1521/FREEPDB1`, usuário `app_embedding`, senha do `APP_USER_PASSWORD` no `.env`, e rode o `sql/02-search.sql` como script (F5).
 
 No fim: `podman compose down`. **Nunca use `down -v` na aula**: o `-v` apaga o banco e o modelo.
 
@@ -108,6 +109,16 @@ No fim: `podman compose down`. **Nunca use `down -v` na aula**: o `-v` apaga o b
 - **Vetores pré-calculados.** Gerar os 400 vetores no Ollama levou 881 s num desktop; num notebook, só com o processador, levaria mais. Por isso os vetores dos filmes vêm prontos em `data/vetores.json`. São os mesmos que deram 7/9 na avaliação. A pergunta continua indo ao Ollama ao vivo.
 - **Proteção contra troca de modelo.** O `vetores.json` guarda o nome do modelo que gerou os vetores, e a carga recusa o arquivo se o modelo configurado for outro. Sem isso, a troca seria silenciosa: se o novo modelo também gerasse 1024 números, nem o INSERT nem o `VECTOR_DISTANCE` dariam erro.
 - **Carga ao vivo (alternativa).** `podman compose exec app python -m app.carga` gera os vetores de novo a partir do `filmes.json`. Demora: 15 minutos ou mais. DELETE e inserts ficam numa transação só: se falhar no meio, a base anterior volta inteira.
+
+## Notebook de demonstrações
+
+O `demonstracoes.ipynb` mostra os conceitos com os dados do projeto: um filme por dentro (texto e vetor), frases parecidas ficando perto, os 400 filmes projetados em 2D, a distância cosseno em vetores pequenos, a conta à mão conferida com o `VECTOR_DISTANCE`, o top-k que sempre devolve k e, opcionalmente, a troca silenciosa de modelo.
+
+Ele não faz parte do compose: roda no computador de quem apresenta, com o Oracle em `localhost:1521` e o Ollama instalado na máquina (o do compose não publica porta). O arquivo é salvo já executado, então dá para abrir no VS Code ou no GitHub sem rodar nada.
+
+```powershell
+pip install -r app/requirements.txt -r requirements-notebook.txt   # no .venv do projeto
+```
 
 ## Memória da máquina virtual
 
