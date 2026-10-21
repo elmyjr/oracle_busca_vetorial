@@ -2,6 +2,11 @@
 # Subir:   podman compose up -d
 # Parar:   podman compose down      (mantém os volumes: banco e modelo)
 # Zerar:   podman compose down -v   (apaga os volumes também)
+#
+# Portas no computador: Oracle em 1522 e página em http://localhost:8001,
+# e não 1521 e 8000, para rodar ao lado de outro projeto que use as portas
+# padrão. Dentro da rede do compose, os serviços continuam em 1521 e 8000.
+# Para trocar sem mexer neste arquivo: ORACLE_PORT e APP_PORT no .env.
 
 services:
 
@@ -15,7 +20,7 @@ services:
       APP_USER: app_embedding                    # criado no FREEPDB1 na 1ª subida
       APP_USER_PASSWORD: ${APP_USER_PASSWORD}
     ports:
-      - "1521:1521"                              # para o SQL Developer / VS Code
+      - "${ORACLE_PORT:-1522}:1521"              # SQL Developer / VS Code em localhost:1522
     volumes:
       - oracle-dados:/opt/oracle/oradata         # os dados sobrevivem ao container
       - ./sql/01-create-table.sql:/container-entrypoint-initdb.d/01-create-table.sql:ro
@@ -50,7 +55,7 @@ services:
       DB_DSN: oracle:1521/FREEPDB1               # "oracle" = nome do serviço acima
       OLLAMA_URL: http://ollama:11434/api/embed  # "ollama" = nome do serviço acima
     ports:
-      - "8000:8000"                              # http://localhost:8000
+      - "${APP_PORT:-8001}:8000"                 # http://localhost:8001
     depends_on:
       oracle:
         condition: service_healthy               # espera o healthcheck passar

@@ -65,7 +65,7 @@ podman compose exec ollama ollama pull bge-m3            # 1,2 GB
 podman compose exec app python -m app.vetores importar   # esperado: 400 filmes, em segundos
 ```
 
-Abra http://localhost:8000 e faça uma busca. Para conferir a qualidade:
+Abra http://localhost:8001 e faça uma busca. Para conferir a qualidade:
 
 ```powershell
 podman compose exec app python -m app.busca
@@ -98,13 +98,14 @@ Buscas para a demonstração:
 | Quero ver um filme com a Fernanda Montenegro | Central do Brasil em 1º |
 | Como declarar o imposto de renda? | Fora da base: algum filme volta, mas com distância bem maior |
 
-Para mostrar o SQL, conecte o VS Code ou o SQL Developer em `localhost:1521/FREEPDB1`, usuário `app_embedding`, senha do `APP_USER_PASSWORD` no `.env`, e rode o `sql/02-search.sql` como script (F5).
+Para mostrar o SQL, conecte o VS Code ou o SQL Developer em `localhost:1522/FREEPDB1`, usuário `app_embedding`, senha do `APP_USER_PASSWORD` no `.env`, e rode o `sql/02-search.sql` como script (F5).
 
 No fim: `podman compose down`. **Nunca use `down -v` na aula**: o `-v` apaga o banco e o modelo.
 
 ## Como funciona
 
 - **Três serviços, encontrados pelo nome.** Dentro da rede do compose, a aplicação fala com `oracle:1521/FREEPDB1` e com `http://ollama:11434`. Os endereços vêm de variáveis de ambiente (`DB_USER`, `DB_PASSWORD`, `DB_DSN`, `OLLAMA_URL`), então o mesmo código roda fora do compose com `localhost`.
+- **Portas no computador.** A página fica em http://localhost:8001 e o Oracle em `localhost:1522`, e não nas portas padrão 8000 e 1521. Assim, o projeto roda ao mesmo tempo que outro que use as portas padrão, sem nenhuma alteração depois do clone. Dentro da rede do compose, os serviços continuam em 1521 e 8000. Para trocar, defina `ORACLE_PORT` e `APP_PORT` no `.env`.
 - **Ordem de subida.** O Oracle leva dezenas de segundos para abrir depois que o container inicia. O `depends_on` com `condition: service_healthy` faz a aplicação esperar o healthcheck do Oracle passar. Além disso, a aplicação abre a conexão a cada busca: se o Oracle cair depois, a busca responde 503 com uma mensagem clara e volta a funcionar quando ele voltar, sem reiniciar nada.
 - **Vetores pré-calculados.** Gerar os 400 vetores no Ollama levou 881 s num desktop; num notebook, só com o processador, levaria mais. Por isso os vetores dos filmes vêm prontos em `data/vetores.json`. São os mesmos que deram 7/9 na avaliação. A pergunta continua indo ao Ollama ao vivo.
 - **Proteção contra troca de modelo.** O `vetores.json` guarda o nome do modelo que gerou os vetores, e a carga recusa o arquivo se o modelo configurado for outro. Sem isso, a troca seria silenciosa: se o novo modelo também gerasse 1024 números, nem o INSERT nem o `VECTOR_DISTANCE` dariam erro.
@@ -114,7 +115,7 @@ No fim: `podman compose down`. **Nunca use `down -v` na aula**: o `-v` apaga o b
 
 O `demonstracoes.ipynb` mostra os conceitos com os dados do projeto: um filme por dentro (texto e vetor), frases parecidas ficando perto, os 400 filmes projetados em 2D, a distância cosseno em vetores pequenos, a conta à mão conferida com o `VECTOR_DISTANCE`, o top-k que sempre devolve k e, opcionalmente, a troca silenciosa de modelo.
 
-Ele não faz parte do compose: roda no computador de quem apresenta, com o Oracle em `localhost:1521` e o Ollama instalado na máquina (o do compose não publica porta). O arquivo é salvo já executado, então dá para abrir no VS Code ou no GitHub sem rodar nada.
+Ele não faz parte do compose: roda no computador de quem apresenta, com um Oracle com a base carregada e o Ollama instalado na máquina (o do compose não publica porta). Para usar o Oracle do compose, defina antes `DB_DSN=localhost:1522/FREEPDB1`. O arquivo é salvo já executado, então dá para abrir no VS Code ou no GitHub sem rodar nada.
 
 ```powershell
 pip install -r app/requirements.txt -r requirements-notebook.txt   # no .venv do projeto
@@ -150,6 +151,8 @@ podman machine start
 
 O Docker Desktop no Windows também usa o WSL 2 e segue o mesmo arquivo.
 
+Para rodar este projeto ao mesmo tempo que outro que também tenha Oracle e Ollama em containers, a VM precisa de mais memória: de 10 a 12 GB (`memory=12GB` no `.wslconfig`, num computador de 16 GB).
+
 ### Mac
 
 A máquina do Podman no Mac começa com 2 GB, o que não basta. Para aumentar:
@@ -167,7 +170,7 @@ Se o `set` for recusado, ajuste em Podman Desktop > Settings > Resources. Outra 
 | Sintoma | Causa provável | O que fazer |
 |---|---|---|
 | `dependency failed to start: container ...-oracle-1 exited (1)` | Falta o `.env`, e a senha chega em branco | Ver `podman compose logs oracle`; criar o `.env`; `podman compose down -v` e `up -d` de novo (só na preparação, nunca na aula) |
-| `address already in use` na 1521 ou na 8000 | Outro Oracle ou outra aplicação na mesma porta | Parar o outro container (`podman ps`, `podman stop <nome>`) |
+| `address already in use` na 1522 ou na 8001 | Outro container ou programa usando a mesma porta | Trocar a porta no `.env` (`ORACLE_PORT` ou `APP_PORT`) e rodar `podman compose up -d` de novo |
 | Página: "Serviço de embeddings indisponível…" | O bge-m3 não foi baixado | `podman compose exec ollama ollama pull bge-m3` |
 | Página: "Banco de dados indisponível…" | O Oracle ainda está subindo ou parou | `podman compose ps`; `podman compose start oracle` e esperar 1 minuto |
 | Página: "Não foi possível conectar à API." | O container `app` não está no ar | `podman compose ps`; `podman compose logs app` |
