@@ -1,7 +1,5 @@
 # Busca semântica de filmes com Oracle AI Database 26ai
 
-Grupo 3 — MBA em Engenharia de Dados, PUC Minas.
-
 Você descreve o filme que quer ver, em linguagem natural, e a aplicação devolve os 3 filmes mais próximos em significado, com a distância de cada um. A base tem 400 filmes, cada um com sinopse, gênero, direção, elenco, clima e recepção.
 
 | Peça | Escolha |
